@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="definition" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="14" bottomMargin="28">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="8"/>
+	<property name="ireport.y" value="177"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="TIPO_NOTA" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TIPO_CHECKLIST" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["38000000071"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TIPO_NOTA_ANAMNESI_INFERMIERISTICA" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["AI"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_INTERFACE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="NOW" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["UTENTE PS"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_INTERFACE1" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="PROPOSTE_CAMPI" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["pz_id,pz_dt_nas,pz_ind_res,pz_nciv_res,pz_cap_res,pz_cfis,pz_ind_dom,pz_team_tes,pz_tel1,pz_nciv_dom,pz_tsan,pz_nome,pz_cogn,pz_sesso,pz_reg_assi,pz_asl_ass,pz_com_dom,pz_com_res,pz_com_nas,pz_citt,pz_com_datlav,pz_datore_lav"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PROPOSTE_CHIAVE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["PZ_ID"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PROPOSTE_LOOKUP" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SA_PAZIENTE"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FONTE_ANAGRAFE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_INTERFACE2" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="NOW1" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="TABELLA_PROFILASSI" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["PS_TIPO_PROFILASSI"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TIPO_NOTA_PRESCRIZIONI" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["P"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DTOUT" class="java.sql.Timestamp" isForPrompting="false"/>
+	<parameter name="SCHEDA" class="java.math.BigDecimal" isForPrompting="false"/>
+	<parameter name="NUMEROSCHEDA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="PAZIENTE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CARTELLA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CONTATTO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SERVIZIOID" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SERVIZIOCODI" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SERVIZIO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="PRESIDIOID" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="PRESIDIOCODI" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="PRESIDIO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NOSOLOGICO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="STATO" class="java.math.BigDecimal" isForPrompting="false"/>
+	<parameter name="DTIN" class="java.sql.Timestamp" isForPrompting="false"/>
+	<parameter name="IDSCHEDA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT TO_CHAR (SYSDATE, 'DD/MM/YYYY') DATA_ATTUALE,
+       PSSTR.SR_DESC SR_DESC,
+       'Dott. Alberto Arru' DIRETTORE,
+       'SAN MICHELE' AZ_DESC,
+       'via G. Peretti 09134' SR_IND,
+       SR_TEL SR_TEL,
+       'CAGLIARI' SR_COMUNE,
+       SC_ID SCHEDA,
+       SC_SCHEDA NUMEROSCHEDA,
+       PZ_CFIS CODICEFISCALE,
+       PZ_COGN COGNOME,
+       PZ_NOME NOME,
+       TRUNC ( (SYSDATE - PZ_DT_NAS) / 365.25) ETA,
+       TO_CHAR (PZ_DT_NAS, 'DD/MM/YYYY') DT_NAS,
+       comnas.cm_desc COMUNE_NAS,
+       comres.cm_desc COMUNE_RES,
+       pz_ind_res IND_RES,
+       pz_nciv_res NCIV_RES,
+       '' TEL1,
+       'TODO' SERVIZIOID,
+       TO_CHAR (sc_dt_inizio, 'dd/mm/yyyy') DATA_ACCESSO,
+       TO_CHAR (sc_dt_inizio, 'hh24:mi') ORA_ACCESSO,
+       TO_CHAR (sc_dt_visita, 'dd/mm/yyyy') DATA_VISITA,
+       TO_CHAR (sc_dt_visita, 'hh24:mi') ORA_VISITA,
+       TO_CHAR (sc_dt_fine, 'dd/mm/yyyy') DATA_DIMISSIONI,
+       TO_CHAR (sc_dt_fine, 'hh24:mi') ORA_DIMISSIONI,
+       TO_CHAR (
+             ''
+          || sc_anamnesi_medica1
+          || sc_anamnesi_medica2
+          || sc_anamnesi_medica3)
+          ANAMNESI,
+       TO_CHAR (SUBSTR (ps_esame_obiettivo, 0, 4000)) ESAME_OBIETTIVO,
+       '---' ESAMI,
+       TO_CHAR (PS_TERAPIA_PRATICATA) FARMACO_TESTO,
+       'TODO' FARMACO,
+       '---' PARAMETRI_CLINICI,
+       TO_CHAR (SC_DIAGNOSI_USCITA_TXT) DIAGNOSI,
+       TO_CHAR (ps_conclusioni_indiczioni) CONCLUSIONI,
+       tipoesito.descrizione MODALITA_DIMISSIONE,
+       CASE
+          WHEN sc_trg_out = 1 THEN 'ROSSO'
+          WHEN sc_trg_out = 2 THEN 'GIALLO'
+          WHEN sc_trg_out = 3 THEN 'VERDE'
+          WHEN sc_trg_out = 4 THEN 'BIANCO'
+          WHEN sc_trg_out = 5 THEN 'NERO'
+          ELSE 'ERRORE ' ||  sc_trg_out
+       END
+          COLORE_ESITO,
+       ' ' REP_RICOVERO_ID,
+       ' ' REP_RICOVERO,
+       ' ' STRTRASF,
+       medicoacc.first_name MEDICO_ACC_NOME,
+       medicoacc.last_name MEDICO_ACC_COGN,
+       'TODO' DIVDESC,
+       ' ' NOSOLOGICO,
+       PS_PROGNOSI_GG_LAV PROGNOSI_LAV,
+       PS_PROGNOSI_GG_CLINICI PROGNOSI_CLI,
+       '' SC_F_RISER,
+       'N' SC_F_CHIUSODATRG,
+       medicodim.first_name MEDICO_DIM_NOME,
+       medicodim.last_name MEDICO_DIM_COGN,
+       TO_CHAR (sc_note_prescrizioni) NT_DESC,
+       sc_tipo_esito_codice SC_ESITO_ID,
+       PROBL_PRINC.DESCRIZIONE AS PROBLEMA_PRINC
+  FROM PSAOB_PS_SCHEDA
+       JOIN psaob_paziente paziente
+          ON sc_paziente = paziente.id
+       LEFT JOIN PSAOB_PS_PROBLEMA_PRINCIPALE PROBL_PRINC
+          ON SC_PROBLEMA_PRINC_ID = PROBL_PRINC.ID
+       LEFT JOIN psaob_sa_comune comnas
+          ON pz_com_nas_cmid = comnas.cmid
+       LEFT JOIN psaob_sa_comune comres
+          ON pz_com_res_cmid = comres.cmid
+       LEFT JOIN psaob_sa_struttura psstr
+          ON sc_struttura_srid = psstr.srid
+       LEFT JOIN sec_user medicoacc
+          ON PS_MEDICO_ACC_ID = medicoacc.id
+       LEFT JOIN sec_user medicodim
+          ON PS_MEDICO_dim_ID = medicodim.id
+       LEFT JOIN PSAOB_PS_TIPO_ESITO_TAB tipoesito
+          ON sc_tipo_esito_codice = tipoesito.codice
+ WHERE SC_ID =  8]]>
+	</queryString>
+	<field name="DATA_ATTUALE" class="java.lang.String"/>
+	<field name="SR_DESC" class="java.lang.String"/>
+	<field name="DIRETTORE" class="java.lang.String"/>
+	<field name="AZ_DESC" class="java.lang.String"/>
+	<field name="SR_IND" class="java.lang.String"/>
+	<field name="SR_TEL" class="java.lang.String"/>
+	<field name="SR_COMUNE" class="java.lang.String"/>
+	<field name="SCHEDA" class="java.math.BigDecimal"/>
+	<field name="NUMEROSCHEDA" class="java.lang.String"/>
+	<field name="CODICEFISCALE" class="java.lang.String"/>
+	<field name="COGNOME" class="java.lang.String"/>
+	<field name="NOME" class="java.lang.String"/>
+	<field name="ETA" class="java.math.BigDecimal"/>
+	<field name="DT_NAS" class="java.lang.String"/>
+	<field name="COMUNE_NAS" class="java.lang.String"/>
+	<field name="COMUNE_RES" class="java.lang.String"/>
+	<field name="IND_RES" class="java.lang.String"/>
+	<field name="NCIV_RES" class="java.lang.String"/>
+	<field name="TEL1" class="java.lang.String"/>
+	<field name="SERVIZIOID" class="java.lang.String"/>
+	<field name="DATA_ACCESSO" class="java.lang.String"/>
+	<field name="ORA_ACCESSO" class="java.lang.String"/>
+	<field name="DATA_VISITA" class="java.lang.String"/>
+	<field name="ORA_VISITA" class="java.lang.String"/>
+	<field name="DATA_DIMISSIONI" class="java.lang.String"/>
+	<field name="ORA_DIMISSIONI" class="java.lang.String"/>
+	<field name="ANAMNESI" class="java.lang.String"/>
+	<field name="ESAME_OBIETTIVO" class="java.lang.String"/>
+	<field name="ESAMI" class="java.lang.String"/>
+	<field name="FARMACO_TESTO" class="java.lang.String"/>
+	<field name="FARMACO" class="java.lang.String"/>
+	<field name="PARAMETRI_CLINICI" class="java.lang.String"/>
+	<field name="DIAGNOSI" class="java.lang.String"/>
+	<field name="CONCLUSIONI" class="java.lang.String"/>
+	<field name="MODALITA_DIMISSIONE" class="java.lang.String"/>
+	<field name="COLORE_ESITO" class="java.lang.String"/>
+	<field name="REP_RICOVERO_ID" class="java.lang.String"/>
+	<field name="REP_RICOVERO" class="java.lang.String"/>
+	<field name="STRTRASF" class="java.lang.String"/>
+	<field name="MEDICO_ACC_NOME" class="java.lang.String"/>
+	<field name="MEDICO_ACC_COGN" class="java.lang.String"/>
+	<field name="DIVDESC" class="java.lang.String"/>
+	<field name="NOSOLOGICO" class="java.lang.String"/>
+	<field name="PROGNOSI_LAV" class="java.lang.String"/>
+	<field name="PROGNOSI_CLI" class="java.lang.String"/>
+	<field name="SC_F_RISER" class="java.lang.String"/>
+	<field name="SC_F_CHIUSODATRG" class="java.lang.String"/>
+	<field name="MEDICO_DIM_NOME" class="java.lang.String"/>
+	<field name="MEDICO_DIM_COGN" class="java.lang.String"/>
+	<field name="NT_DESC" class="java.lang.String"/>
+	<field name="SC_ESITO_ID" class="java.lang.String"/>
+	<field name="PROBLEMA_PRINC" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="195" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" positionType="Float" x="406" y="97" width="132" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NUMEROSCHEDA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="319" y="78" width="187" height="12"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="47" y="70" width="459" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Verbale di accettazione e delle Prestazioni Sanitarie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" positionType="Float" x="0" y="97" width="258" height="18"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Servizio di Pronto Soccorso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" x="265" y="97" width="141" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Ingresso N°]]></text>
+			</staticText>
+			<image scaleImage="RetainShape">
+				<reportElement key="image-1" x="0" y="0" width="147" height="70"/>
+				<imageExpression class="java.lang.String"><![CDATA["http://www.sardegnamedicina.it/sites/default/files/aobrotzu_0.jpg"]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="153" y="22" width="259" height="18"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SR_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-4" positionType="Float" x="153" y="43" width="205" height="16"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Direttore: "+$F{DIRETTORE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-5" x="215" y="4" width="324" height="18"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AZ_DESC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-2" mode="Opaque" x="153" y="4" width="63" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[OSPEDALE]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-8" positionType="Float" x="439" y="120" width="100" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ETA}  + " anni"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-3" positionType="Float" x="0" y="148" width="74" height="14"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Residenza]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-4" positionType="Float" x="126" y="134" width="96" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DT_NAS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" x="222" y="134" width="317" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COMUNE_NAS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-3" positionType="Float" x="74" y="148" width="465" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COMUNE_RES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-6" positionType="Float" x="0" y="176" width="74" height="14"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-5" positionType="Float" x="0" y="162" width="74" height="14"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Indirizzo]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-5" positionType="Float" x="74" y="162" width="465" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[( $F{IND_RES} != null ? $F{IND_RES}: " " )+"  "+( $F{NCIV_RES} != null ? $F{NCIV_RES}: " " )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-7" positionType="Float" x="200" y="176" width="104" height="14"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Codice Fiscale]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" positionType="Float" x="0" y="134" width="126" height="14"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Data e luogo di nascita]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-7" positionType="Float" x="304" y="176" width="235" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CODICEFISCALE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-13" positionType="Float" x="416" y="120" width="23" height="14"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[età]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-1" positionType="Float" x="126" y="120" width="290" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{COGNOME}!=null?$F{COGNOME}:"")+"  "+($F{NOME}!=null?$F{NOME}:"")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-6" positionType="Float" x="74" y="176" width="126" height="14"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TEL1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-2" positionType="Float" x="0" y="120" width="126" height="14"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cognome e Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="0" y="120" width="539" height="70"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="504" splitType="Immediate">
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" mode="Opaque" x="0" y="3" width="130" height="13" backcolor="#FFFFFF"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Problema principale:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" x="130" y="3" width="407" height="13" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PROBLEMA_PRINC}==null?"":" "+$F{PROBLEMA_PRINC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-6" positionType="Float" x="203" y="34" width="91" height="17" backcolor="#FFFFFF"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATA_VISITA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-5" positionType="Float" x="203" y="17" width="132" height="17" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Data Visita]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" positionType="Float" x="30" y="17" width="126" height="17" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Data Triage]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" positionType="Float" x="371" y="17" width="132" height="17" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Data Uscita]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-1" positionType="Float" x="31" y="34" width="91" height="17" backcolor="#FFFFFF"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATA_ACCESSO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-7" positionType="Float" x="297" y="34" width="47" height="17" backcolor="#FFFFFF"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ORA_VISITA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-4" positionType="Float" x="371" y="34" width="91" height="17" backcolor="#FFFFFF"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATA_DIMISSIONI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" x="125" y="34" width="47" height="17" backcolor="#FFFFFF"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ORA_ACCESSO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-5" positionType="Float" x="465" y="34" width="47" height="17" backcolor="#FFFFFF"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ORA_DIMISSIONI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-3" positionType="Float" mode="Opaque" x="0" y="68" width="539" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ANAMNESI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" x="0" y="53" width="142" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{ANAMNESI}!=null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Anamnesi:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" x="0" y="87" width="142" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{ESAME_OBIETTIVO}!=null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Esame Obiettivo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" x="0" y="101" width="539" height="15" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{ESAME_OBIETTIVO}!=null)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ESAME_OBIETTIVO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" x="0" y="130" width="539" height="13" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ESAMI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" x="0" y="116" width="142" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{ESAMI}!=null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Esami:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" stretchType="RelativeToTallestObject" x="1" y="160" width="539" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{FARMACO_TESTO}!=null)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FARMACO_TESTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="145" width="142" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{FARMACO_TESTO}!=null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Terapia praticata:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" stretchType="RelativeToTallestObject" x="1" y="189" width="539" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{FARMACO}!=null)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PARAMETRI_CLINICI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="175" width="142" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{PARAMETRI_CLINICI}!=null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Parametri Clinici:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-4" positionType="Float" x="0" y="223" width="539" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DIAGNOSI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-6" positionType="Float" x="0" y="209" width="143" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{DIAGNOSI}!=null)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Diagnosi:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-9" positionType="Float" x="117" y="294" width="185" height="14" backcolor="#FFFFFF"/>
+				<textElement>
+					<font isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MODALITA_DIMISSIONE}==null?"":" "+$F{MODALITA_DIMISSIONE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-5" positionType="Float" x="0" y="256" width="539" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CONCLUSIONI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-6" positionType="Float" x="131" y="275" width="166" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COLORE_ESITO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-10" positionType="Float" x="302" y="294" width="237" height="14" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean(!"499".equals($F{REP_RICOVERO_ID}) && !"500".equals($F{REP_RICOVERO_ID}))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REP_RICOVERO}==null?($F{STRTRASF}==null?"":" Struttura ricevente: "+$F{STRTRASF}):" Reparto di Ricovero: "+$F{REP_RICOVERO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-7" positionType="Float" x="98" y="346" width="392" height="14" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[( $F{MEDICO_ACC_NOME} != null ? $F{MEDICO_ACC_NOME}+" ": " " )+( $F{MEDICO_ACC_COGN} != null ? $F{MEDICO_ACC_COGN}: " " )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-7" positionType="Float" x="0" y="242" width="148" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{CONCLUSIONI}!=null)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Conclusioni ed indicazioni:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-8" positionType="Float" x="0" y="275" width="126" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{COLORE_ESITO}!=null)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Codifica alla Dimissione:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-13" positionType="Float" x="302" y="308" width="237" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean(!"499".equals($F{REP_RICOVERO_ID}) && !"500".equals($F{REP_RICOVERO_ID}))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REP_RICOVERO}==null?($F{STRTRASF}==null?null:($F{DIVDESC}==null?null:" Divisione: "+$F{DIVDESC})):" Nosologico: "+$F{NOSOLOGICO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-11" positionType="Float" x="0" y="365" width="98" height="14" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Medico dimettente : ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-12" positionType="Float" x="0" y="327" width="539" height="14" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{PROGNOSI_LAV}==null && $F{PROGNOSI_CLI}==null)?
+("S".equals($F{SC_F_RISER})?"PROGNOSI  RISERVATA":null):
+(($F{PROGNOSI_LAV}==null?"":"Prognosi giorni lavorativi:  "+$F{PROGNOSI_LAV}+"       ")+
+($F{PROGNOSI_CLI}==null?"":"Prognosi giorni clinici:  "+$F{PROGNOSI_CLI}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-12" positionType="Float" x="0" y="294" width="117" height="14" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Modalità di Dimissione:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-8" positionType="Float" x="98" y="365" width="392" height="14" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean(!"S".equals($F{SC_F_CHIUSODATRG}))]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[( $F{MEDICO_DIM_NOME} != null ? $F{MEDICO_DIM_NOME}+" ": " " )+( $F{MEDICO_DIM_COGN} != null ? $F{MEDICO_DIM_COGN}: " " )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-9" positionType="Float" x="0" y="346" width="98" height="14" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Medico accettante : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" x="0" y="390" width="539" height="41" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{SC_ESITO_ID}!=null && "90000001017".compareTo($F{SC_ESITO_ID})== 0)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Il paziente è stato informato che per le sue condizioni cliniche sarebbe opportuno il ricovero in ambito ospedaliero. Dichiara di aver compreso quanto spiegato e, nonostante i rischi connessi alla sua decisione, contro il parere del Medico, rifiuta, per motivi personali, il ricovero propostogli.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" positionType="Float" x="342" y="434" width="150" height="35" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($F{SC_ESITO_ID}!=null && "90000001017".compareTo($F{SC_ESITO_ID})== 0)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Il Paziente]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="101" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-4" positionType="FixRelativeToBottom" mode="Transparent" x="319" y="82" width="174" height="19" forecolor="#666666" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" rotation="None" lineSpacing="Single">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pagina " + $V{PAGE_NUMBER} + " di "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" positionType="FixRelativeToBottom" mode="Transparent" x="495" y="82" width="44" height="19" forecolor="#666666" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" lineSpacing="Single">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="10" y="38" width="135" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[www.aobrotzu.it]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="179" y="49" width="150" height="29"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{SR_IND}==null?"":" "+$F{SR_IND})+
+($F{SR_COMUNE}==null?"":"  "+$F{SR_COMUNE})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-4" x="359" y="49" width="181" height="29"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{SR_IND}==null?"":" "+$F{SR_IND})+
+($F{SR_COMUNE}==null?"":"  "+$F{SR_COMUNE})+
+($F{SR_TEL}==null?"":"\n Tel."+$F{SR_TEL})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" x="10" y="16" width="282" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{SR_COMUNE}!=null?$F{SR_COMUNE}+", ":"")+$F{DATA_ATTUALE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" positionType="Float" x="323" y="0" width="217" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="false" isUnderline="false" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Il Medico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="181" y="38" width="150" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Direzione Sanitaria]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-5" x="361" y="38" width="179" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SR_DESC}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-1" x="325" y="30" width="216" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
