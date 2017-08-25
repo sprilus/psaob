@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="it.aob.psaob.web.pstipoesitotab.PsTipoEsitoTabBrowse"
+        focusComponent="psTipoEsitoTabsTable"
+        lookupComponent="psTipoEsitoTabsTable"
+        messagesPack="it.aob.psaob.web.pstipoesitotab">
+    <dsContext>
+        <groupDatasource id="psTipoEsitoTabsDs"
+                         class="it.aob.psaob.entity.PsTipoEsitoTab"
+                         view="_local">
+            <query>
+                <![CDATA[select e from psaob$PsTipoEsitoTab e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="psTipoEsitoTabsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="psTipoEsitoTabsTable"
+                datasource="psTipoEsitoTabsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="psTipoEsitoTabsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="descrizione"/>
+                <column id="codice"/>
+            </columns>
+            <rows datasource="psTipoEsitoTabsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="psTipoEsitoTabsTable.create"/>
+                <button id="editBtn"
+                        action="psTipoEsitoTabsTable.edit"/>
+                <button id="removeBtn"
+                        action="psTipoEsitoTabsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

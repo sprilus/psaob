@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="it.aob.psaob.web.prrichieste.PrRichiesteEdit"
+        datasource="prRichiesteDs"
+        focusComponent="fieldGroup"
+        messagesPack="it.aob.psaob.web.prrichieste">
+    <dsContext>
+        <datasource id="prRichiesteDs"
+                    class="it.aob.psaob.entity.PrRichieste"
+                    view="prRichieste-view-esami">
+            <collectionDatasource id="ricPrestazioniDs"
+                                  property="ricPrestazioni"/>
+            <collectionDatasource id="psSchedasDs"
+                                  property="ricPrestazioni"/>
+        </datasource>
+        <collectionDatasource id="ricMedicoRicsDs"
+                              class="com.haulmont.cuba.security.entity.User"
+                              view="_minimal"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <tabSheet caption="Richiesta Prestazioni">
+            <tab id="Richiesta"
+                 caption="Richiesta"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <fieldGroup id="fieldGroup"
+                            datasource="prRichiesteDs">
+                    <column width="600px">
+                        <field property="ricCodice"/>
+                        <field property="ricPosEro"/>
+                        <field property="ricDric"/>
+                        <field property="ricPaziente"/>
+                        <field property="ricUrgenza"/>
+                        <field property="ricQuesitoDiagnostico"
+                               rows="3"/>
+                        <field property="ricNote"
+                               rows="3"/>
+                        <field optionsDatasource="ricMedicoRicsDs"
+                               property="ricMedicoRic"/>
+                    </column>
+                </fieldGroup>
+            </tab>
+            <tab id="Attivita"
+                 caption="Attivita"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <groupBox id="ricPrestazioniBox"
+                          caption="msg://it.aob.psaob.entity/PrRichieste.ricPrestazioni">
+                    <table id="ricPrestazioniTable"
+                           height="500px"
+                           width="100%">
+                        <actions>
+                            <action id="add"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="prCodice"/>
+                            <column id="prCodmin"/>
+                            <column id="prDescrB"/>
+                        </columns>
+                        <rows datasource="ricPrestazioniDs"/>
+                        <buttonsPanel>
+                            <button action="ricPrestazioniTable.add"/>
+                            <button action="ricPrestazioniTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                </groupBox>
+            </tab>
+            <tab id="Stampa Richiesta"
+                 caption="Stampa Richiesta"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <link id="prRichiesteStampa"
+                      caption="Stampa Richiesta"
+                      target="_stampaRichiesta"
+                      url="http://psaob.aob.it:8081/jasperserver/flow.html?_flowId=viewReportFlow&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2FPSAOB&amp;reportUnit=%2FPSAOB%2FPSW_RICHIESTA&amp;standAlone=true&amp;j_username=PSAOB&amp;j_password=PSAOB"/>
+            </tab>
+        </tabSheet>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

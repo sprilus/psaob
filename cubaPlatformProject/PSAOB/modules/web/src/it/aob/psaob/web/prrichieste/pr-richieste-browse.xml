@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="it.aob.psaob.web.prrichieste.PrRichiesteBrowse"
+        focusComponent="prRichiestesTable"
+        lookupComponent="prRichiestesTable"
+        messagesPack="it.aob.psaob.web.prrichieste">
+    <dsContext>
+        <groupDatasource id="prRichiestesDs"
+                         class="it.aob.psaob.entity.PrRichieste"
+                         view="prRichieste-view-esami">
+            <query>
+                <![CDATA[select e from psaob$PrRichieste e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="prRichiestesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="prRichiestesTable"
+                datasource="prRichiestesDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="prRichiestesTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="ricCode"/>
+                <column id="ricPosEro"/>
+                <column id="ricDric"/>
+                <column id="ricPsScheda"/>
+                <column id="ricPaziente"/>
+                <column id="ricUrgenza"/>
+                <column id="ricNote"/>
+            </columns>
+            <rows datasource="prRichiestesDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="prRichiestesTable.create"/>
+                <button id="editBtn"
+                        action="prRichiestesTable.edit"/>
+                <button id="removeBtn"
+                        action="prRichiestesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

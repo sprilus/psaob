@@ -1,0 +1,9 @@
+alter table PSAOB_PS_SCHEDA add ( SC_DT_VISITA timestamp ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_ESAME_OBIETTIVO clob ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_TERAPIA_PRATICATA clob ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_CONCLUSIONI_INDICZIONI clob ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_PROGNOSI_GG_CLINICI varchar2(10) ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_PROGNOSI_GG_LAV varchar2(10) ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_PAZ_RIFIUTO_RICOVERO char(1) ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_MEDICO_ACC_ID varchar2(32) ) ^
+alter table PSAOB_PS_SCHEDA add ( PS_MEDICO_DIM_ID varchar2(32) ) ^

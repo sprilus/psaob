@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             version="2.0">
+    <persistence-unit name="PSAOB"
+                      transaction-type="RESOURCE_LOCAL">
+        <class>it.aob.psaob.entity.Paziente</class>
+        <class>it.aob.psaob.entity.PsScheda</class>
+        <class>it.aob.psaob.entity.PsProblemaPrincipale</class>
+        <class>it.aob.psaob.entity.SaCittadinanza</class>
+        <class>it.aob.psaob.entity.SaComune</class>
+        <class>it.aob.psaob.entity.SaStruttura</class>
+        <class>it.aob.psaob.entity.PsTipoEsitoTab</class>
+        <class>it.aob.psaob.entity.SaDiagnosi</class>
+        <class>it.aob.psaob.entity.SaPrestazioni</class>
+        <class>it.aob.psaob.entity.PrRichieste</class>
+    </persistence-unit>
+</persistence>

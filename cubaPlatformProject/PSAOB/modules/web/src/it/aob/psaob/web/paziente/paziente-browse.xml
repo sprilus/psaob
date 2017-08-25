@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="it.aob.psaob.web.paziente.PazienteBrowse"
+        focusComponent="pazientesTable"
+        lookupComponent="pazientesTable"
+        messagesPack="it.aob.psaob.web.paziente">
+    <dsContext>
+        <groupDatasource id="pazientesDs"
+                         class="it.aob.psaob.entity.Paziente"
+                         view="paziente-view-fk">
+            <query>
+                <![CDATA[select e from psaob$Paziente e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="pazientesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="pazientesTable"
+                datasource="pazientesDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="pazientesTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="refresh"/>
+                <action id="add"/>
+            </actions>
+            <columns>
+                <column id="pzId"/>
+                <column id="pzCogn"/>
+                <column id="pzNome"/>
+                <column id="pzDtNas"/>
+                <column id="pzComNas"/>
+                <column id="pzCfis"/>
+                <column id="pzTsanId"/>
+                <column id="pzSesso"/>
+            </columns>
+            <rows datasource="pazientesDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="pazientesTable.create"/>
+                <button id="editBtn"
+                        action="pazientesTable.edit"/>
+                <button id="removeBtn"
+                        action="pazientesTable.remove"/>
+                <button id="refreshBtn"
+                        action="pazientesTable.refresh"/>
+                <button id="addBtn"
+                        action="pazientesTable.add"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

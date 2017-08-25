@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="it.aob.psaob.web.paziente.PazienteEdit"
+        datasource="pazienteDs"
+        focusComponent="fieldGroup"
+        messagesPack="it.aob.psaob.web.paziente">
+    <dsContext>
+        <datasource id="pazienteDs"
+                    class="it.aob.psaob.entity.Paziente"
+                    view="paziente-view-fk"/>
+        <collectionDatasource id="pzCittsDs"
+                              class="it.aob.psaob.entity.SaCittadinanza"
+                              view="_minimal"/>
+        <collectionDatasource id="pzComNasesDs"
+                              class="it.aob.psaob.entity.SaComune"
+                              view="_minimal"/>
+        <collectionDatasource id="pzComResesDs"
+                              class="it.aob.psaob.entity.SaComune"
+                              view="_minimal"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="pazienteDs">
+            <column width="350px">
+                <field property="pzId"/>
+                <field property="pzCogn"/>
+                <field property="pzNome"/>
+                <field optionsDatasource="pzComNasesDs"
+                       property="pzComNas"/>
+                <field property="pzDtNas"/>
+                <field property="pzSesso"/>
+                <field property="pzCfis"/>
+                <field optionsDatasource="pzCittsDs"
+                       property="pzCitt"/>
+                <field optionsDatasource="pzComResesDs"
+                       property="pzComRes"/>
+                <field property="pzIndRes"/>
+                <field property="pzNcivRes"/>
+                <field property="pzAslApp"/>
+                <field property="pzTel1"/>
+            </column>
+        </fieldGroup>
+        <groupBox orientation="horizontal"
+                  spacing="true">
+            <fieldGroup id="fieldgroup_1"
+                        datasource="pazienteDs">
+                <column width="350px">
+                    <field property="pzTsanId"/>
+                    <field property="pzTsanIstituzComp"/>
+                    <field property="pzTsanDtIni"/>
+                    <field property="pzTsanDtFin"/>
+                </column>
+            </fieldGroup>
+        </groupBox>
+        <groupBox orientation="horizontal"
+                  spacing="true">
+            <fieldGroup id="fieldgroup_2"
+                        datasource="pazienteDs">
+                <column width="350px">
+                    <field property="pzStpCodice"/>
+                    <field property="pzStpDtIni"/>
+                    <field property="pzStpDtFin"/>
+                </column>
+            </fieldGroup>
+        </groupBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

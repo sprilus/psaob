@@ -1,0 +1,2 @@
+alter table PSAOB_PS_SCHEDA add constraint FK_PSAOB_PSSCH_PS_MEDICO_ACC foreign key (PS_MEDICO_ACC_ID) references SEC_USER(ID)^
+create index IDX_PSAOB_PSSCH_PS_MEDICO_ACC on PSAOB_PS_SCHEDA (PS_MEDICO_ACC_ID)^

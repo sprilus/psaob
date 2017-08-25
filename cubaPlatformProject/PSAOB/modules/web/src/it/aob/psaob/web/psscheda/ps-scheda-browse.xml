@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="it.aob.psaob.web.psscheda.PsSchedaBrowse"
+        focusComponent="psSchedasTable"
+        lookupComponent="psSchedasTable"
+        messagesPack="it.aob.psaob.web.psscheda">
+    <dsContext>
+        <groupDatasource id="psSchedasDs"
+                         class="it.aob.psaob.entity.PsScheda"
+                         view="psScheda-view-paziente">
+            <query>
+                <![CDATA[select e from psaob$PsScheda e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="psSchedasTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="psSchedasTable"
+                datasource="psSchedasDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="psSchedasTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="scStruttura"
+                        maxTextLength="20"
+                        width="100px"/>
+                <column id="scTrgIn"/>
+                <column id="scDtInizio"/>
+                <column id="scStatosk"/>
+                <column id="scPaziente"
+                        maxTextLength="20"
+                        width="150px"/>
+                <column id="scCaseManager"/>
+                <column id="scScheda"/>
+                <column id="scProblemaPrinc"
+                        width="100px"/>
+            </columns>
+            <rows datasource="psSchedasDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="psSchedasTable.create"/>
+                <button id="editBtn"
+                        action="psSchedasTable.edit"/>
+                <button id="removeBtn"
+                        action="psSchedasTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

@@ -1,0 +1,2 @@
+alter table PSAOB_PS_SCHEDA add constraint FK_PSAOB_PSSCH_SCCASMAN foreign key (SC_CASE_MANAGER) references SEC_USER(ID)^
+create index IDX_PSAOB_PSSCH_SCCASMAN on PSAOB_PS_SCHEDA (SC_CASE_MANAGER)^

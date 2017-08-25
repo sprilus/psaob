@@ -1,0 +1,1 @@
+Quando si modifica l'entita PsScheda, fare attenzione, perché il cuba studio rimuove l'annotation @Id da dal campo Id.

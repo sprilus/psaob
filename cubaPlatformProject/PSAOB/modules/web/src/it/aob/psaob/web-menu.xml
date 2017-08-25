@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="application-psaob-anagrafiche"
+          insertBefore="administration">
+        <item screen="psaob$Paziente.browse">
+            <param name="2b4f4462c348e69a0e895f53a75219e9"
+                   value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;  &lt;filter&gt;   &lt;and&gt;     &lt;c name=&quot;pzCogn&quot; class=&quot;java.lang.String&quot; operatorType=&quot;CONTAINS&quot; width=&quot;1&quot; type=&quot;PROPERTY&quot;&gt;&lt;![CDATA[e.pzCogn like :component$filter.pzCogn71760 ESCAPE &apos;\&apos; ]]&gt;       &lt;param name=&quot;component$filter.pzCogn71760&quot; javaClass=&quot;java.lang.String&quot;&gt;NULL&lt;/param&gt;     &lt;/c&gt;     &lt;c name=&quot;pzNome&quot; class=&quot;java.lang.String&quot; operatorType=&quot;CONTAINS&quot; width=&quot;1&quot; type=&quot;PROPERTY&quot;&gt;&lt;![CDATA[e.pzNome like :component$filter.pzNome41226 ESCAPE &apos;\&apos; ]]&gt;       &lt;param name=&quot;component$filter.pzNome41226&quot; javaClass=&quot;java.lang.String&quot;&gt;NULL&lt;/param&gt;     &lt;/c&gt;     &lt;c name=&quot;pzCfis&quot; class=&quot;java.lang.String&quot; operatorType=&quot;EQUAL&quot; width=&quot;1&quot; type=&quot;PROPERTY&quot;&gt;&lt;![CDATA[e.pzCfis = :component$filter.pzCfis40755]]&gt;       &lt;param name=&quot;component$filter.pzCfis40755&quot; javaClass=&quot;java.lang.String&quot;&gt;NULL&lt;/param&gt;     &lt;/c&gt;     &lt;c name=&quot;pzDtNas&quot; class=&quot;java.util.Date&quot; operatorType=&quot;EQUAL&quot; width=&quot;1&quot; type=&quot;PROPERTY&quot;&gt;&lt;![CDATA[e.pzDtNas = :component$filter.pzDtNas38254]]&gt;       &lt;param name=&quot;component$filter.pzDtNas38254&quot; javaClass=&quot;java.util.Date&quot;&gt;NULL&lt;/param&gt;     &lt;/c&gt;     &lt;c name=&quot;pzComNas&quot; class=&quot;java.lang.String&quot; operatorType=&quot;EQUAL&quot; width=&quot;1&quot; type=&quot;PROPERTY&quot;&gt;&lt;![CDATA[e.pzComNas = :component$filter.pzComNas78253]]&gt;       &lt;param name=&quot;component$filter.pzComNas78253&quot; javaClass=&quot;java.lang.String&quot;&gt;NULL&lt;/param&gt;     &lt;/c&gt;   &lt;/and&gt; &lt;/filter&gt;"/>
+        </item>
+        <item screen="psaob$SaStruttura.browse"/>
+        <item screen="psaob$SaComune.browse"/>
+        <item screen="psaob$SaCittadinanza.browse"/>
+        <item screen="psaob$PsTipoEsitoTab.browse"/>
+        <item screen="psaob$SaDiagnosi.browse"/>
+        <item screen="psaob$SaPrestazioni.browse"/>
+    </menu>
+    <menu id="application-psaob-ps"
+          insertBefore="administration">
+        <item screen="psaob$PsScheda.browse"/>
+        <item screen="psaob$PrRichieste.browse"/>
+    </menu>
+</menu-config>

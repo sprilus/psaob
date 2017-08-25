@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="it.aob.psaob.entity.PsScheda"
+          extends="_local"
+          name="psScheda-view-paziente"
+          systemProperties="true">
+        <property name="scPaziente"
+                  view="_minimal"/>
+        <property name="scCaseManager"
+                  view="_minimal"/>
+        <property name="scProblemaPrinc"
+                  view="_minimal"/>
+        <property name="psMedicoDim"
+                  view="_minimal"/>
+        <property name="psMedicoAcc"
+                  view="_minimal"/>
+        <property name="scStruttura"
+                  view="_minimal"/>
+        <property name="scTipoEsito"
+                  view="_minimal"/>
+        <property name="scDiagnosiCod"
+                  view="_local"/>
+        <property name="scRichiesta"
+                  view="_local">
+            <property name="ricPaziente"
+                      view="_minimal"/>
+        </property>
+    </view>
+    <view class="it.aob.psaob.entity.Paziente"
+          extends="_local"
+          name="paziente-view-fk">
+        <property name="pzCitt"
+                  view="_minimal"/>
+        <property name="pzComNas"
+                  view="_minimal"/>
+        <property name="pzComRes"
+                  view="_minimal"/>
+    </view>
+    <view class="it.aob.psaob.entity.PrRichieste"
+          extends="_local"
+          name="prRichieste-view-esami">
+        <property name="ricPaziente"
+                  view="_minimal"/>
+        <property name="ricPrestazioni"
+                  view="_minimal">
+            <property name="prCodice"/>
+            <property name="prCodmin"/>
+        </property>
+        <property name="ricMedicoRic"
+                  view="_minimal"/>
+    </view>
+</views>

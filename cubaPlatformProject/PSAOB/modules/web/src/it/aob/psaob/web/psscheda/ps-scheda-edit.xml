@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="it.aob.psaob.web.psscheda.PsSchedaEdit"
+        datasource="psSchedaDs"
+        messagesPack="it.aob.psaob.web.psscheda">
+    <dsContext>
+        <datasource id="psSchedaDs"
+                    class="it.aob.psaob.entity.PsScheda"
+                    view="psScheda-view-paziente">
+            <collectionDatasource id="scDiagnosiCodDs"
+                                  property="scDiagnosiCod"/>
+            <collectionDatasource id="scRichiestaDs"
+                                  property="scRichiesta"/>
+        </datasource>
+        <collectionDatasource id="scCaseManagersDs"
+                              class="com.haulmont.cuba.security.entity.User"
+                              view="_minimal"/>
+        <collectionDatasource id="scProblemaPrincsDs"
+                              class="it.aob.psaob.entity.PsProblemaPrincipale"
+                              view="_minimal"/>
+        <collectionDatasource id="psMedicoDimsDs"
+                              class="com.haulmont.cuba.security.entity.User"
+                              view="_minimal"/>
+        <collectionDatasource id="psMedicoAccsDs"
+                              class="com.haulmont.cuba.security.entity.User"
+                              view="_minimal"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <tabSheet id="schedaPS"
+                  caption="SchedaPS">
+            <tab id="psGenerale"
+                 caption="Generale"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <fieldGroup id="fieldGroupGenerale"
+                            datasource="psSchedaDs">
+                    <column width="500px">
+                        <field id="scId"
+                               property="scId"/>
+                        <field property="scScheda"/>
+                        <field property="scStruttura"/>
+                        <field property="scDtInizio"/>
+                        <field property="scStatosk"/>
+                        <field property="scPaziente"/>
+                        <field optionsDatasource="scCaseManagersDs"
+                               property="scCaseManager"/>
+                        <field optionsDatasource="scProblemaPrincsDs"
+                               property="scProblemaPrinc"/>
+                    </column>
+                </fieldGroup>
+            </tab>
+            <tab id="psTriage"
+                 caption="Triage"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <fieldGroup id="fieldGroupTriage"
+                            datasource="psSchedaDs">
+                    <column width="500px">
+                        <field property="scTrgIn"/>
+                        <field property="scModAcc"/>
+                        <field property="scAnamnesiInferm"
+                               rows="3"/>
+                        <field property="scCausaDichiarataAcc"
+                               rows="3"/>
+                    </column>
+                </fieldGroup>
+            </tab>
+            <tab id="psVisita"
+                 caption="Visita"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <fieldGroup id="fieldGroupVisita"
+                            datasource="psSchedaDs">
+                    <column width="500px">
+                        <field property="scDtVisita"/>
+                        <field optionsDatasource="psMedicoAccsDs"
+                               property="psMedicoAcc"/>
+                        <field property="scAnamnesiMedica1"
+                               rows="5"/>
+                        <field property="psEsameObiettivo"
+                               rows="5"/>
+                        <field property="psTerapiaPraticata"
+                               rows="5"/>
+                    </column>
+                </fieldGroup>
+            </tab>
+            <tab id="psRichiesteEsami"
+                 caption="Esami"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <groupBox id="scRichiestaBox"
+                          caption="msg://it.aob.psaob.entity/PsScheda.scRichiesta">
+                    <table id="scRichiestaTable"
+                           height="500px"
+                           width="100%">
+                        <actions>
+                            <action id="create"/>
+                            <action id="edit"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="ricPosEro"/>
+                            <column id="ricDric"/>
+                            <column id="ricUrgenza"/>
+                            <column id="ricNote"/>
+                            <column id="ricQuesitoDiagnostico"/>
+                            <column id="ricCodice"/>
+                        </columns>
+                        <rows datasource="scRichiestaDs"/>
+                        <buttonsPanel>
+                            <button action="scRichiestaTable.create"/>
+                            <button action="scRichiestaTable.edit"/>
+                            <button action="scRichiestaTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                </groupBox>
+            </tab>
+            <tab id="psDimissione"
+                 caption="Dimissione"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <scrollBox height="600px">
+                    <groupBox id="scDiagnosiCodBox"
+                              caption="msg://it.aob.psaob.entity/PsScheda.scDiagnosiCod">
+                        <table id="scDiagnosiCodTable"
+                               height="150px"
+                               width="100%">
+                            <actions>
+                                <action id="add"/>
+                                <action id="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="descrizione"/>
+                                <column id="codice"/>
+                            </columns>
+                            <rows datasource="scDiagnosiCodDs"/>
+                            <buttonsPanel>
+                                <button action="scDiagnosiCodTable.add"/>
+                                <button action="scDiagnosiCodTable.remove"/>
+                            </buttonsPanel>
+                        </table>
+                    </groupBox>
+                    <fieldGroup id="fieldGroupDimissione"
+                                datasource="psSchedaDs">
+                        <column width="400px">
+                            <field property="scDiagnosiUscitaTxt"
+                                   rows="3"/>
+                            <field property="scTipoEsito"/>
+                            <field optionsDatasource="psMedicoDimsDs"
+                                   property="psMedicoDim"/>
+                            <field property="scNotePrescrizioni"
+                                   rows="3"/>
+                            <field property="psConclusioniIndiczioni"
+                                   rows="3"/>
+                        </column>
+                        <column width="300px">
+                            <field property="scDtFine"/>
+                            <field property="scTrgOut"/>
+                            <field property="scSolvente"/>
+                            <field property="psPrognosiGgClinici"/>
+                            <field property="psPrognosiGgLav"/>
+                        </column>
+                    </fieldGroup>
+                </scrollBox>
+            </tab>
+            <tab id="pSchedaStampe"
+                 caption="Stampe"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <link id="psSchedaStampaFoglioDimLink"
+                      caption="Stampa Foglio Dimissione"
+                      target="_stampaVerbalePS"
+                      url="http://psaob.aob.it:8081/jasperserver/flow.html?_flowId=viewReportFlow&amp;decorate=no&amp;viewReport=true&amp;_flowId=viewReportFlow&amp;ParentFolderUri=%2FPSAOB&amp;reportUnit=%2FPSAOB%2FPSAOB_Foglio_Dimissione&amp;standAlone=true&amp;j_username=PSAOB&amp;j_password=PSAOB"/>
+            </tab>
+        </tabSheet>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

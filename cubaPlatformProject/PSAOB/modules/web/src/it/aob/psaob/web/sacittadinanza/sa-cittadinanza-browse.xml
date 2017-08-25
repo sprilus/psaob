@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="it.aob.psaob.web.sacittadinanza.SaCittadinanzaBrowse"
+        focusComponent="saCittadinanzasTable"
+        lookupComponent="saCittadinanzasTable"
+        messagesPack="it.aob.psaob.web.sacittadinanza">
+    <dsContext>
+        <groupDatasource id="saCittadinanzasDs"
+                         class="it.aob.psaob.entity.SaCittadinanza"
+                         view="_local">
+            <query>
+                <![CDATA[select e from psaob$SaCittadinanza e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="saCittadinanzasTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="saCittadinanzasTable"
+                datasource="saCittadinanzasDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="saCittadinanzasTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="ctCodice"/>
+                <column id="ctDesc"/>
+                <column id="ctId"/>
+            </columns>
+            <rows datasource="saCittadinanzasDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="saCittadinanzasTable.create"/>
+                <button id="editBtn"
+                        action="saCittadinanzasTable.edit"/>
+                <button id="removeBtn"
+                        action="saCittadinanzasTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

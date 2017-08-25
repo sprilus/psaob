@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="it.aob.psaob.web.saprestazioni.SaPrestazioniBrowse"
+        focusComponent="saPrestazionisTable"
+        lookupComponent="saPrestazionisTable"
+        messagesPack="it.aob.psaob.web.saprestazioni">
+    <dsContext>
+        <groupDatasource id="saPrestazionisDs"
+                         class="it.aob.psaob.entity.SaPrestazioni"
+                         view="_local">
+            <query>
+                <![CDATA[select e from psaob$SaPrestazioni e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="saPrestazionisTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="saPrestazionisTable"
+                datasource="saPrestazionisDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="saPrestazionisTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="prCodice"/>
+                <column id="prDescrB"/>
+                <column id="prCodmin"/>
+                <column id="prId"/>
+            </columns>
+            <rows datasource="saPrestazionisDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="saPrestazionisTable.create"/>
+                <button id="editBtn"
+                        action="saPrestazionisTable.edit"/>
+                <button id="removeBtn"
+                        action="saPrestazionisTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

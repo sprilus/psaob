@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="it.aob.psaob.web.sastruttura.SaStrutturaEdit"
+        datasource="saStrutturaDs"
+        focusComponent="fieldGroup"
+        messagesPack="it.aob.psaob.web.sastruttura">
+    <dsContext>
+        <datasource id="saStrutturaDs"
+                    class="it.aob.psaob.entity.SaStruttura"
+                    view="_local"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="saStrutturaDs">
+            <column width="250px">
+                <field property="srCodice"/>
+                <field property="srDesc"/>
+                <field property="srResponsabile"/>
+                <field property="srTel"/>
+                <field property="srFax"/>
+                <field property="srTipo"/>
+                <field property="srId"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

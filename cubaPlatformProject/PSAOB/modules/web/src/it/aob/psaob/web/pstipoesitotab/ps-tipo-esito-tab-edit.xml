@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="it.aob.psaob.web.pstipoesitotab.PsTipoEsitoTabEdit"
+        datasource="psTipoEsitoTabDs"
+        focusComponent="fieldGroup"
+        messagesPack="it.aob.psaob.web.pstipoesitotab">
+    <dsContext>
+        <datasource id="psTipoEsitoTabDs"
+                    class="it.aob.psaob.entity.PsTipoEsitoTab"
+                    view="_local"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="psTipoEsitoTabDs">
+            <column width="250px">
+                <field property="descrizione"/>
+                <field property="codice"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>
